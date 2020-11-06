@@ -2,3 +2,8 @@
 
 // * GET `*` - Should return the `index.html` file
 
+// DEPENDENCIES
+
+// ROUTING
+
+// GET REQUESTS
