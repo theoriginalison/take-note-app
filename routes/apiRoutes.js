@@ -21,6 +21,24 @@ module.exports = function (app) {
 
     // API POST REQUEST
 
+    app.post("/api/notes", function (req, res) {
+        //receive new note to save on the request body
+        console.log(req.body);
+        //req.body needs to be added to the notes and resaved
+        //notes is being read by the db.json and needs to be rewritten there
+        fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (err, notes) {
+
+            console.log(notes);
+        });
+        //add it to the db.json file
+        // fs.writeFile(path.join(__dirname, "../db/db.json"), "utf8", function (notes) {
+        //     notes.push(req.notes);
+        //     res.json(true);
+        // });
+        //return note
+        // res.json(notes); maybe here?
+    })
+
     //think of a way to create an ID for the notes, since there's no ID for them, bc you need that for the delete route, like on Line 5; will need to read the file to see what the latest ID is an increment it by 1 (using ++ or +=1); will use lines 38, read it, increment ID, and then respond back, using res.json
 
 
