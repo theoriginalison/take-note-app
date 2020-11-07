@@ -1,6 +1,5 @@
 // DEPENDENCIES
 var path = require("path");
-const { allowedNodeEnvironmentFlags } = require("process");
 
 // ROUTING
 module.exports = function (app) {
