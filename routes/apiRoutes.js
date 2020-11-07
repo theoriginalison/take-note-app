@@ -7,6 +7,7 @@
 // DEPENDENCY
 var fs = require("fs");
 var path = require("path");
+const { v4: uuidv4 } = require('uuid');
 
 // ROUTING
 module.exports = function (app) {
@@ -14,8 +15,8 @@ module.exports = function (app) {
     // API GET REQUESTS
 
     app.get("/api/notes", function (req, res) {
-        fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (notes) {
-            res.json(notes);
+        fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (err, notes) {
+            res.json(JSON.parse(notes));
         });
     });
 
@@ -24,17 +25,23 @@ module.exports = function (app) {
     app.post("/api/notes", function (req, res) {
         //receive new note to save on the request body
         console.log(req.body);
+        const newNote = req.body;
         //req.body needs to be added to the notes and resaved
         //notes is being read by the db.json and needs to be rewritten there
-        fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (err, notes) {
+        fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (err, noteStr) {
 
+            const notes = JSON.parse(noteStr)
+            newNote.id = uuidv4();
+            notes.push(newNote);
             console.log(notes);
+            // res.json(newNote);
+            //add it to the db.json file
+            fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify(notes), function (err) {
+                // notes.push(req.notes);
+                res.json(true);
+            });
         });
-        //add it to the db.json file
-        // fs.writeFile(path.join(__dirname, "../db/db.json"), "utf8", function (notes) {
-        //     notes.push(req.notes);
-        //     res.json(true);
-        // });
+
         //return note
         // res.json(notes); maybe here?
     })
