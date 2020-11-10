@@ -40,7 +40,22 @@ module.exports = function (app) {
         });
     })
 
+    app.delete("/api/notes/:id", function (req, res) {
+        const deleteNote = req.params.id;
+        fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (err, noteStr) {
+            const notes = JSON.parse(noteStr);
+            for (let i = 0; i < notes.length; i++) {
+                let note = notes[i];
+                if (note.id === deleteNote) {
+                    notes.splice(i, 1);
+                };
+            };
+            fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify(notes), function (err) {
+                res.json(true);
+            });
+        });
 
+    });
 
 
     //then create the delete route, which you'll need the ID for
