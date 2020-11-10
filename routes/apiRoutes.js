@@ -34,19 +34,13 @@ module.exports = function (app) {
             newNote.id = uuidv4();
             notes.push(newNote);
             console.log(notes);
-            // res.json(newNote);
-            //add it to the db.json file
             fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify(notes), function (err) {
-                // notes.push(req.notes);
                 res.json(true);
             });
         });
-
-        //return note
-        // res.json(notes); maybe here?
     })
 
-    //think of a way to create an ID for the notes, since there's no ID for them, bc you need that for the delete route, like on Line 5; will need to read the file to see what the latest ID is an increment it by 1 (using ++ or +=1); will use lines 38, read it, increment ID, and then respond back, using res.json
+
 
 
     //then create the delete route, which you'll need the ID for
