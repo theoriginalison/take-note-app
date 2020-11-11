@@ -1,7 +1,3 @@
-// * GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
-
-// * POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
-
 // * DELETE `/api/notes/:id` - Should receive a query parameter containing the id of a note to delete. This means you'll need to find a way to give each note a unique `id` when it's saved. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
 
 // DEPENDENCY
@@ -23,11 +19,8 @@ module.exports = function (app) {
     // API POST REQUEST
 
     app.post("/api/notes", function (req, res) {
-        //receive new note to save on the request body
         console.log(req.body);
         const newNote = req.body;
-        //req.body needs to be added to the notes and resaved
-        //notes is being read by the db.json and needs to be rewritten there
         fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (err, noteStr) {
 
             const notes = JSON.parse(noteStr)
@@ -58,6 +51,7 @@ module.exports = function (app) {
     });
 
 
-    //then create the delete route, which you'll need the ID for
+    // STILL NEED TO DO: Figure out how to delete the test text-- is that something we need to do?
+
 }
 
